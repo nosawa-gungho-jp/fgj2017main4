@@ -131,8 +131,8 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 416997258}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -18.4, y: 13.8, z: 42}
-  m_LocalScale: {x: 163.18231, y: 148.88242, z: 60}
+  m_LocalPosition: {x: 27, y: 29, z: 42}
+  m_LocalScale: {x: 91.4526, y: 94.24528, z: 60}
   m_Children: []
   m_Father: {fileID: 495123576}
   m_RootOrder: 0
@@ -307,9 +307,9 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0.9076508, y: 0}
-  m_AnchoredPosition: {x: -15.099998, y: 352}
-  m_SizeDelta: {x: 743.4, y: 911.1}
-  m_Pivot: {x: 0.5, y: 0.5471127}
+  m_AnchoredPosition: {x: 112.100006, y: 339.5}
+  m_SizeDelta: {x: 385.1, y: 923.5}
+  m_Pivot: {x: 0.6082929, y: 0.5}
 --- !u!114 &868870581
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -378,8 +378,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.40686494, y: 0.4016667}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 554.9999, y: -297.00003}
-  m_SizeDelta: {x: 131.5, y: 52.6}
+  m_AnchoredPosition: {x: -313, y: -236.99991}
+  m_SizeDelta: {x: 119.6, y: 26.5}
   m_Pivot: {x: 0.5, y: -1.7869799}
 --- !u!114 &1069042984
 MonoBehaviour:
@@ -530,9 +530,9 @@ Camera:
   m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
   m_NormalizedViewPortRect:
     serializedVersion: 2
-    x: 0
+    x: 0.022440463
     y: 0
-    width: 1
+    width: 0.9551191
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
@@ -714,9 +714,9 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.0000019078, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -3.6068726, y: -15.8810005}
+  m_SizeDelta: {x: 1, y: 9}
+  m_Pivot: {x: -3.6069148, y: -0.76450545}
 --- !u!114 &2134938551
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -739,7 +739,7 @@ MonoBehaviour:
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
     m_FontSize: 80
-    m_FontStyle: 0
+    m_FontStyle: 1
     m_BestFit: 0
     m_MinSize: 0
     m_MaxSize: 80
