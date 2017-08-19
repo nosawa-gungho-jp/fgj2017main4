@@ -18,11 +18,21 @@ public class SeaMesh : MonoBehaviour
 	// 波の高さの取得(World座標)
 	public float GetWaveHeight(Vector3 pos)
 	{
-		pos -= transform.localPosition;
+		pos -= transform.position;
 		pos /= m_Scale;
 		var idx = (int)pos.x;
 
 		return (0 <= idx && idx < m_HeightValue.Length)? -m_HeightValue[idx] * m_Scale : 0;
+	}
+
+	// 波の打ち上げ速度の取得
+	public float GetWaveVelocity(Vector3 pos)
+	{
+		pos -= transform.localPosition;
+		pos /= m_Scale;
+		var idx = (int)pos.x;
+
+		return (0 <= idx && idx < m_HeightForce.Length)? -m_HeightForce[idx] : 0;
 	}
 
 	public void ForcePower(Vector3 pos, float power)
@@ -102,7 +112,7 @@ public class SeaMesh : MonoBehaviour
 	{
 		for (var i = 1; i < m_Width; i++)
 		{
-			m_HeightForce[i] = (m_HeightValue[i + 1] + m_HeightValue[i - 1] - 2.0f * m_HeightValue[i]) * Tension + Friction * m_HeightForce[i];
+			m_HeightForce[i] = (m_HeightValue[i + 1] + m_HeightValue[i - 1] - 2.06f * m_HeightValue[i]) * Tension + Friction * m_HeightForce[i];
 		}
 		for (var i = 0; i <= m_Width; i++)
 		{

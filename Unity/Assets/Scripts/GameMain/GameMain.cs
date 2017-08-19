@@ -49,7 +49,7 @@ public class GameMain : MonoBehaviour
         }
         m_playerposi.x += Time.deltaTime / 2;
 		var height = m_seaComp.GetWaveHeight(m_playerposi);
-		Debug.Log("Height:" + height.ToString());
+		//Debug.Log("Height:" + height.ToString());
         m_player.transform.position = new Vector3(m_playerposi.x,height - 2.56f,m_playerposi.z);
     }
 }
