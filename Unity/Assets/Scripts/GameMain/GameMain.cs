@@ -20,7 +20,8 @@ public class GameMain : MonoBehaviour
 	float	m_gravity;
 	float	m_cowSpeed;
 	float	m_Timer;
-	Text	m_TimerText;
+	//Text	m_TimerText;
+	DispTimer	m_TimerText;
     bool m_goalflag;
     public GameObject m_goal;
     Image m_Sampleresu;
@@ -41,7 +42,7 @@ public class GameMain : MonoBehaviour
 		m_gravity = 0;
 		m_cowSpeed = 10.0f;
 		m_Timer = 0;
-		m_TimerText = GameObject.Find("Canvas").transform.Find("Timer").GetComponent<Text>();
+		m_TimerText = GameObject.Find("Canvas").transform.Find("Timer").GetComponent<DispTimer>();
         m_goalflag = false;
         m_goal = GameObject.Find("Goal");
         m_Sampleresu = GameObject.Find("Canvas").transform.Find("SampleResult").GetComponent<Image>();
@@ -68,6 +69,7 @@ public class GameMain : MonoBehaviour
             InputProc();
             CowMoveProc();
             TimerProc();
+			VoiceProc();
         }
         goalproc();
     }
@@ -137,7 +139,8 @@ public class GameMain : MonoBehaviour
 		if (m_TimerText != null)
 		{
 			m_Timer += Time.deltaTime;
-			m_TimerText.text = string.Format("TIME:{0:D2}:{1:D2}", (int)m_Timer, (int)(m_Timer * 100) % 100);
+			m_TimerText.SetNum((int)(m_Timer * 100));
+			//m_TimerText.text = string.Format("TIME:{0:D2}:{1:D2}", (int)m_Timer, (int)(m_Timer * 100) % 100);
 		}
 	}
 
@@ -161,7 +164,7 @@ public class GameMain : MonoBehaviour
 
         if(m_goalflag)
         {
-            m_ResuText.text = m_TimerText.text;
+            m_ResuText.text = string.Format("TIME:{0:D2}:{1:D2}", (int)m_Timer, (int)(m_Timer * 100) % 100);
             m_Sampleresu.color = new Color(m_Sampleresu.color.r, m_Sampleresu.color.g, m_Sampleresu.color.b, m_Sampleresu.color.a + Time.deltaTime);
             m_ResuText.color = new Color(m_ResuText.color.r, m_ResuText.color.g, m_ResuText.color.b, m_ResuText.color.a + Time.deltaTime);
         }
