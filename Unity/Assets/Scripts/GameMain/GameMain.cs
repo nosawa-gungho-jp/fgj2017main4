@@ -18,6 +18,7 @@ public class GameMain : MonoBehaviour
     Vector3 m_cameraposi;
     float	m_count;
 	float	m_gravity;
+	float	m_cowSpeed;
 
 	void Start ()
 	{
@@ -29,6 +30,7 @@ public class GameMain : MonoBehaviour
         m_camera = Camera.main;
         m_cameraposi = m_camera.transform.position;
 		m_gravity = 0;
+		m_cowSpeed = 10.0f;
 
 		SoundManager.instance.LoadSoundSourceFromResource(1, "Sounds/BGM_STAGE");
 		SoundMixer.PlayBGM(1, true);
@@ -75,18 +77,23 @@ public class GameMain : MonoBehaviour
     // 牛移動処理
     void CowMoveProc()
 	{
-        if(m_player.transform.position.x >= 0)
-        {
-            m_camera.transform.position = new Vector3(m_player.transform.position.x, m_cameraposi.y, m_cameraposi.z);
-        }
-        m_playerposi.x += Time.deltaTime / 2;
-
 		var playerPosY = m_player.transform.position.y;
-		var height = m_seaComp.GetWaveHeight(m_playerposi) - 2.56f;		// 位置調整（マジックナンバー）
-		var diff = playerPosY - height;
+
+		m_playerposi.x += m_cowSpeed * Time.deltaTime;
+		m_cowSpeed *= 0.95f;			// スピード減衰率（マジックナンバー）
+
+		var playerFront  = new Vector3(m_playerposi.x - 1.0f, m_playerposi.y, m_playerposi.z);
+		var playerBack   = new Vector3(m_playerposi.x + 1.0f, m_playerposi.y, m_playerposi.z);
+		var heightFront  = m_seaComp.GetWaveHeight(playerFront);
+		var heightBack   = m_seaComp.GetWaveHeight(playerBack);
+		m_cowSpeed += (heightFront - heightBack) * 0.5f;
+		//Debug.Log("Speed:" + (heightFront - heightBack).ToString());
+
+		var heightCenter = m_seaComp.GetWaveHeight(m_playerposi) - 2.56f;		// 位置調整（マジックナンバー）
+		var diff = playerPosY - heightCenter;
 		if (diff <= 0.1f)
 		{
-			playerPosY = height;
+			playerPosY = heightCenter;
 			m_gravity = -m_seaComp.GetWaveVelocity(m_playerposi) * 0.5f;	// 上向きの力補正（マジックナンバー）
 		}
 		else
@@ -95,5 +102,11 @@ public class GameMain : MonoBehaviour
 			playerPosY -= m_gravity;
 		}
         m_player.transform.position = new Vector3(m_playerposi.x, playerPosY, m_playerposi.z);
+
+		// カメラ位置調整
+		if (m_player.transform.position.x >= 0)
+        {
+            m_camera.transform.position = new Vector3(m_player.transform.position.x, m_cameraposi.y, m_cameraposi.z);
+        }
 	}
 }

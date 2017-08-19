@@ -40,15 +40,13 @@ public class SeaMesh : MonoBehaviour
 		pos -= transform.localPosition;
 		pos /= m_Scale;
 		var idx = (int)pos.x;
-		if (idx != 0)
+		if (idx < 2 || idx > m_HeightForce.Length - 2)
 		{
-			m_HeightForce[idx - 1] = -power * 0.5f;
+			return;
 		}
+		m_HeightForce[idx - 1] = -power * 0.5f;
 		m_HeightForce[idx] = -power;
-		if (idx < m_HeightForce.Length - 1)
-		{
-			m_HeightForce[idx + 1] = -power * 0.5f;
-		}
+		m_HeightForce[idx + 1] = -power * 0.5f;
 	}
 
 	private void Start()
