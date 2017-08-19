@@ -95,6 +95,7 @@
     <Compile Include="Assets\Scripts\Common\iTween.cs" />
     <Compile Include="Assets\Scripts\Common\SoundMixer.cs" />
     <Compile Include="Assets\Scripts\Common\UUID.cs" />
+    <Compile Include="Assets\Scripts\Title\Title.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Plugins\VSSMFU\Docs\license.txt" />
