@@ -130,7 +130,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 312931142}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -5, y: -2, z: 10}
+  m_LocalPosition: {x: -5, y: -0.5, z: 12}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1648392329}
@@ -355,7 +355,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4526474610365042, guid: 2acd4409adbbe2d429bfcf6d06333ca7, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -4.5
+      value: -8
       objectReference: {fileID: 0}
     - target: {fileID: 4526474610365042, guid: 2acd4409adbbe2d429bfcf6d06333ca7, type: 2}
       propertyPath: m_LocalPosition.y
@@ -481,7 +481,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 914867489}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 34, y: -1, z: 10}
+  m_LocalPosition: {x: 34, y: -0.5, z: 12}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1928977880}
@@ -705,9 +705,9 @@ Camera:
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
-    y: 0.14801848
+    y: 0
     width: 1
-    height: 0.70396304
+    height: 1
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 60
@@ -797,7 +797,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1365523399}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -3.5, y: -2, z: 10}
+  m_LocalPosition: {x: -3.5, y: -2, z: 9}
   m_LocalScale: {x: 23, y: 23, z: 0}
   m_Children:
   - {fileID: 1063851990}
@@ -833,8 +833,8 @@ Transform:
   - {fileID: 1365523400}
   - {fileID: 312931143}
   - {fileID: 914867490}
-  - {fileID: 1957707340}
   - {fileID: 1665018595}
+  - {fileID: 1957707340}
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -926,7 +926,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4243792713158274, guid: aaae3647cfaa29346afbe2d9fc1a0ea5, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 10
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 4243792713158274, guid: aaae3647cfaa29346afbe2d9fc1a0ea5, type: 2}
       propertyPath: m_LocalRotation.x
@@ -946,7 +946,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4243792713158274, guid: aaae3647cfaa29346afbe2d9fc1a0ea5, type: 2}
       propertyPath: m_RootOrder
-      value: 5
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: aaae3647cfaa29346afbe2d9fc1a0ea5, type: 2}
