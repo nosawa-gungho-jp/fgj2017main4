@@ -16,6 +16,7 @@ public class GameMain : MonoBehaviour
     public SeaMesh m_seaComp;
     Vector3 m_playerposi;
     Vector3 m_cameraposi;
+    float m_count;
 
 	void Start ()
 	{
@@ -41,18 +42,36 @@ public class GameMain : MonoBehaviour
 	// ì¸óÕèàóù
 	void InputProc()
 	{
- 		if (Input.GetMouseButtonDown(0))
-		{
-			var	touchPos = Input.mousePosition;
-			var camera = GameObject.Find("Main Camera").GetComponent<Camera>();
-			var touchWPos = camera.ScreenToWorldPoint(new Vector3(touchPos.x, touchPos.y));
-			m_seaComp.ForcePower(touchWPos, 4.0f);
-			//Debug.Log("Pushed" + ((int)touchWPos.x).ToString() + "," + ((int)touchWPos.y).ToString());
-		}
-	}
+        //if (Input.GetMouseButtonDown(0))
+        //{
+        //    //var touchPos = Input.mousePosition;
+        //    //var camera = GameObject.Find("Main Camera").GetComponent<Camera>();
+        //    //var touchWPos = camera.ScreenToWorldPoint(new Vector3(touchPos.x, touchPos.y));
+        //    //m_seaComp.ForcePower(touchWPos, 4.0f + m_count);
+        //    //Debug.Log("Pushed" + ((int)touchWPos.x).ToString() + "," + ((int)touchWPos.y).ToString());
+        //    m_count += Time.deltaTime * 100;
+        //    Debug.Log(m_count);
+        //}
 
-	// ãçà⁄ìÆèàóù
-	void CowMoveProc()
+        if (Input.GetMouseButtonUp(0))
+        {
+            Debug.Log(m_count);
+            var touchPos = Input.mousePosition;
+            var camera = GameObject.Find("Main Camera").GetComponent<Camera>();
+            var touchWPos = camera.ScreenToWorldPoint(new Vector3(touchPos.x, touchPos.y));
+            m_seaComp.ForcePower(touchWPos, 4.0f + m_count);
+            m_count = 0;
+            //Debug.Log("Pushed" + ((int)touchWPos.x).ToString() + "," + ((int)touchWPos.y).ToString());
+        }
+        if(Input.GetMouseButton(0))
+        {
+            m_count += Time.deltaTime * 5;
+            Debug.Log(m_count);
+        }
+    }
+
+    // ãçà⁄ìÆèàóù
+    void CowMoveProc()
 	{
         if(m_player.transform.position.x >= 0)
         {
