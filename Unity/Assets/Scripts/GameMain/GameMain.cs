@@ -16,7 +16,7 @@ public class GameMain : MonoBehaviour
     public SeaMesh m_seaComp;
     Vector3 m_playerposi;
     Vector3 m_cameraposi;
-    float m_count;
+    float	m_count;
 	float	m_gravity;
 
 	void Start ()
