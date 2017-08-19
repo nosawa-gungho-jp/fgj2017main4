@@ -94,3 +94,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Friction: 0.85
   Tension: 0.6
+  m_Width: 300
+  m_Height: 20

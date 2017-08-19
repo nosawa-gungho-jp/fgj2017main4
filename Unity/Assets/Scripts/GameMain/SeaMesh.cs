@@ -6,12 +6,12 @@ public class SeaMesh : MonoBehaviour
 {
 	public	float			Friction = 0.5f;
 	public	float			Tension = 0.5f;
+	public	int				m_Width = 100;
+	public	int				m_Height = 20;
 
 	private	MeshFilter		m_MeshFilter;
 	private	Mesh			m_Mesh;
 	private	float			m_Scale;
-	private	int				m_Width, m_Height;
-	//private	float			m_Value, m_Counter;
 	private	float[]			m_HeightValue;
 	private	float[]			m_HeightForce;
 
@@ -54,8 +54,6 @@ public class SeaMesh : MonoBehaviour
 		m_MeshFilter = GetComponent<MeshFilter>();
 
 		m_Scale = 0.5f;
-		m_Width = 100;
-		m_Height = 20;
 
 		m_HeightValue = new float[m_Width + 1];
 		m_HeightForce = new float[m_Width + 1];
