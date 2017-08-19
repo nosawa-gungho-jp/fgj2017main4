@@ -95,6 +95,7 @@
     <Compile Include="Assets\Scripts\Common\iTween.cs" />
     <Compile Include="Assets\Scripts\Common\SoundMixer.cs" />
     <Compile Include="Assets\Scripts\Common\UUID.cs" />
+    <Compile Include="Assets\Scripts\GameMain\DispTimer.cs" />
     <Compile Include="Assets\Scripts\GameMain\GameMain.cs" />
     <Compile Include="Assets\Scripts\GameMain\SeaMesh.cs" />
     <Compile Include="Assets\Scripts\Title\Button.cs" />
