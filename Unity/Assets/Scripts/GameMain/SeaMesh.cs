@@ -100,36 +100,12 @@ public class SeaMesh : MonoBehaviour
 	
 	private void Update()
 	{
-		if (Input.GetMouseButtonDown(0))
-		{
-			var	touchPos = Input.mousePosition;
-			var camera = GameObject.Find("Main Camera").GetComponent<Camera>();
-			var touchWPos = camera.ScreenToWorldPoint(new Vector3(touchPos.x, touchPos.y));
-			ForcePower(touchWPos, 4.0f);
-			//Debug.Log("Pushed" + ((int)touchWPos.x).ToString() + "," + ((int)touchWPos.y).ToString());
-		}
 		for (var i = 1; i < m_Width; i++)
 		{
 			m_HeightForce[i] = (m_HeightValue[i + 1] + m_HeightValue[i - 1] - 2.0f * m_HeightValue[i]) * Tension + Friction * m_HeightForce[i];
 		}
 		for (var i = 0; i <= m_Width; i++)
 		{
-/*
-			var force = 0.0f;
-			if (m_HeightValue[i] < 0)		force =  0.10f;
-			else if (m_HeightValue[i] > 0)	force = -0.10f;
-			m_HeightForce[i] += force;
-			m_HeightForce[i] *= 0.6f;
-			if (Mathf.Abs(m_HeightForce[i]) < 0.02f)
-			{
-				m_HeightForce[i] = 0;
-				m_HeightValue[i] = 0;
-			}
-			else
-			{
-				m_HeightValue[i] += m_HeightForce[i];
-			}
-*/
 			m_HeightValue[i] += m_HeightForce[i];
 		}
 		SetVertex();

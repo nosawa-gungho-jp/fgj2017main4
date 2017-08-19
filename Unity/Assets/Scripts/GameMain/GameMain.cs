@@ -34,7 +34,16 @@ public class GameMain : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
 	{
-        if(m_player.transform.position.x > 5)
+ 		if (Input.GetMouseButtonDown(0))
+		{
+			var	touchPos = Input.mousePosition;
+			var camera = GameObject.Find("Main Camera").GetComponent<Camera>();
+			var touchWPos = camera.ScreenToWorldPoint(new Vector3(touchPos.x, touchPos.y));
+			m_seaComp.ForcePower(touchWPos, 4.0f);
+			//Debug.Log("Pushed" + ((int)touchWPos.x).ToString() + "," + ((int)touchWPos.y).ToString());
+		}
+
+		if (m_player.transform.position.x > 5)
         {
             m_camera.transform.position = new Vector3(m_player.transform.position.x, m_cameraposi.y, m_cameraposi.z);
         }
