@@ -16,6 +16,7 @@ public class GameMain : MonoBehaviour
     public SeaMesh m_seaComp;
     Vector3 m_playerposi;
     Vector3 m_cameraposi;
+	float	m_gravity;
 
 	void Start ()
 	{
@@ -26,6 +27,7 @@ public class GameMain : MonoBehaviour
         m_seaComp = m_sea.GetComponent<SeaMesh>();
         m_camera = Camera.main;
         m_cameraposi = m_camera.transform.position;
+		m_gravity = 0;
 
 		SoundManager.instance.LoadSoundSourceFromResource(1, "Sounds/BGM_STAGE");
 		SoundMixer.PlayBGM(1, true);
@@ -59,8 +61,20 @@ public class GameMain : MonoBehaviour
             m_camera.transform.position = new Vector3(m_player.transform.position.x, m_cameraposi.y, m_cameraposi.z);
         }
         m_playerposi.x += Time.deltaTime / 2;
-		var height = m_seaComp.GetWaveHeight(m_playerposi);
-		//Debug.Log("Height:" + height.ToString());
-        m_player.transform.position = new Vector3(m_playerposi.x,height - 2.56f,m_playerposi.z);
+
+		var playerPosY = m_player.transform.position.y;
+		var height = m_seaComp.GetWaveHeight(m_playerposi) - 2.56f;		// 位置調整（マジックナンバー）
+		var diff = playerPosY - height;
+		if (diff <= 0.1f)
+		{
+			playerPosY = height;
+			m_gravity = -m_seaComp.GetWaveVelocity(m_playerposi) * 0.5f;	// 上向きの力補正（マジックナンバー）
+		}
+		else
+		{
+			m_gravity += 1.0f * Time.deltaTime;		//自由落下係数（マジックナンバー）
+			playerPosY -= m_gravity;
+		}
+        m_player.transform.position = new Vector3(m_playerposi.x, playerPosY, m_playerposi.z);
 	}
 }
