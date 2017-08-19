@@ -96,6 +96,7 @@
     <Compile Include="Assets\Scripts\Common\SoundMixer.cs" />
     <Compile Include="Assets\Scripts\Common\UUID.cs" />
     <Compile Include="Assets\Scripts\GameMain\GameMain.cs" />
+    <Compile Include="Assets\Scripts\GameMain\SeaMesh.cs" />
     <Compile Include="Assets\Scripts\Title\Title.cs" />
   </ItemGroup>
   <ItemGroup>
