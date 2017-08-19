@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using Ionic.Zlib;
+using VSSMFU;
 
 public class GameMain : MonoBehaviour
 {
@@ -23,7 +24,10 @@ public class GameMain : MonoBehaviour
         m_sea = GameObject.Find("sea");
         m_camera = Camera.main;
         m_cameraposi = m_camera.transform.position;
-    }
+
+		SoundManager.instance.LoadSoundSourceFromResource(1, "Sounds/BGM_STAGE");
+		SoundMixer.PlayBGM(1, true);
+	}
 	
 	// Update is called once per frame
 	void Update ()
