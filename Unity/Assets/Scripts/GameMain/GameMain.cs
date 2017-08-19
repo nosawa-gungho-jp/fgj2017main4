@@ -34,6 +34,13 @@ public class GameMain : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
 	{
+		InputProc();
+		CowMoveProc();
+    }
+
+	// “ü—Íˆ—
+	void InputProc()
+	{
  		if (Input.GetMouseButtonDown(0))
 		{
 			var	touchPos = Input.mousePosition;
@@ -42,7 +49,11 @@ public class GameMain : MonoBehaviour
 			m_seaComp.ForcePower(touchWPos, 4.0f);
 			//Debug.Log("Pushed" + ((int)touchWPos.x).ToString() + "," + ((int)touchWPos.y).ToString());
 		}
+	}
 
+	// ‹ˆÚ“®ˆ—
+	void CowMoveProc()
+	{
         if(m_player.transform.position.x >= 0)
         {
             m_camera.transform.position = new Vector3(m_player.transform.position.x, m_cameraposi.y, m_cameraposi.z);
@@ -51,5 +62,5 @@ public class GameMain : MonoBehaviour
 		var height = m_seaComp.GetWaveHeight(m_playerposi);
 		//Debug.Log("Height:" + height.ToString());
         m_player.transform.position = new Vector3(m_playerposi.x,height - 2.56f,m_playerposi.z);
-    }
+	}
 }
