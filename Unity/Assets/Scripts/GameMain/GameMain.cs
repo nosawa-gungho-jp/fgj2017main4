@@ -39,7 +39,9 @@ public class GameMain : MonoBehaviour
             m_camera.transform.position = new Vector3(m_player.transform.position.x, m_cameraposi.y, m_cameraposi.z);
         }
         m_playerposi.x += Time.deltaTime / 2;
-        m_player.transform.position = new Vector3(m_playerposi.x,m_seaComp.GetWaveHeight(m_playerposi),m_playerposi.z);
+		var height = m_seaComp.GetWaveHeight(m_playerposi);
+		Debug.Log("Height:" + height.ToString());
+        m_player.transform.position = new Vector3(m_playerposi.x,height - 2.56f,m_playerposi.z);
         //m_player.transform.position = new Vector3(m_playerposi.x, m_playerposi.y, m_playerposi.z);
     }
 }

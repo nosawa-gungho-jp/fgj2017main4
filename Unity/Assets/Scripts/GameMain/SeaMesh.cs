@@ -22,7 +22,7 @@ public class SeaMesh : MonoBehaviour
 		pos /= m_Scale;
 		var idx = (int)pos.x;
 
-		return (0 <= idx && idx < m_HeightForce.Length)? m_HeightForce[idx] : 0;
+		return (0 <= idx && idx < m_HeightValue.Length)? -m_HeightValue[idx] * m_Scale : 0;
 	}
 
 	public void ForcePower(Vector3 pos, float power)
