@@ -23,8 +23,6 @@ public class GameMain : MonoBehaviour
 	Text	m_TimerText;
     bool m_goalflag;
     public GameObject m_goal;
-    Image m_Sampleresu;
-    Text m_ResuText;
 
 
     void Start ()
@@ -42,9 +40,6 @@ public class GameMain : MonoBehaviour
 		m_TimerText = GameObject.Find("Canvas").transform.Find("Timer").GetComponent<Text>();
         m_goalflag = false;
         m_goal = GameObject.Find("Goal");
-        m_Sampleresu = GameObject.Find("Canvas").transform.Find("SampleResult").GetComponent<Image>();
-        m_ResuText = GameObject.Find("Canvas").transform.Find("ResultTime").GetComponent<Text>();
-        
 
         SoundManager.instance.LoadSoundSourceFromResource(1, "Sounds/BGM_STAGE");
 		SoundMixer.PlayBGM(1, true);
@@ -58,6 +53,7 @@ public class GameMain : MonoBehaviour
             InputProc();
             CowMoveProc();
             TimerProc();
+            Hit();
         }
         goalproc();
 		
@@ -143,18 +139,36 @@ public class GameMain : MonoBehaviour
             m_goalflag = true;
             m_player.transform.position = new Vector3(m_player.transform.position.x + Time.deltaTime, m_playerposi.y, m_playerposi.z);
         }
+        else
+        {
+            m_player.transform.position = new Vector3(m_player.transform.position.x, m_playerposi.y, m_playerposi.z);
+        }
 
         if(m_player.transform.position.x <= rightX && m_player.transform.position.x >= rightX - 2.0f)
         {
             m_goalflag = true;
             m_player.transform.position = new Vector3(m_player.transform.position.x - Time.deltaTime, m_playerposi.y, m_playerposi.z);
         }
-
-        if(m_goalflag)
+        else
         {
-            m_ResuText.text = m_TimerText.text;
-            m_Sampleresu.color = new Color(m_Sampleresu.color.r, m_Sampleresu.color.g, m_Sampleresu.color.b, m_Sampleresu.color.a + Time.deltaTime);
-            m_ResuText.color = new Color(m_ResuText.color.r, m_ResuText.color.g, m_ResuText.color.b, m_ResuText.color.a + Time.deltaTime);
+            m_player.transform.position = new Vector3(m_player.transform.position.x, m_playerposi.y, m_playerposi.z);
+        }
+
+    }
+
+    void Hit()
+    {
+        if (m_player.transform.GetComponentInChildren<Collider2D>().gameObject.name == "Coin")
+        {
+            Debug.Log("Hit");
+        }
+    }
+
+    void OnCollisionEnter2D(Collision2D col)
+    {
+        if(col.gameObject.name == "Coin")
+        {
+            Debug.Log("Hit");
         }
     }
 }
