@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class SeaMesh : MonoBehaviour
 {
+	public	float			Friction = 0.5f;
+	public	float			Tension = 0.5f;
+
 	private	MeshFilter		m_MeshFilter;
 	private	Mesh			m_Mesh;
 	private	float			m_Scale;
@@ -15,11 +18,21 @@ public class SeaMesh : MonoBehaviour
 	// 波の高さの取得(World座標)
 	public float GetWaveHeight(Vector3 pos)
 	{
+		pos -= transform.position;
+		pos /= m_Scale;
+		var idx = (int)pos.x;
+
+		return (0 <= idx && idx < m_HeightValue.Length)? -m_HeightValue[idx] * m_Scale : 0;
+	}
+
+	// 波の打ち上げ速度の取得
+	public float GetWaveVelocity(Vector3 pos)
+	{
 		pos -= transform.localPosition;
 		pos /= m_Scale;
 		var idx = (int)pos.x;
 
-		return (0 <= idx && idx < m_HeightForce.Length)? m_HeightForce[idx] : 0;
+		return (0 <= idx && idx < m_HeightForce.Length)? -m_HeightForce[idx] : 0;
 	}
 
 	public void ForcePower(Vector3 pos, float power)
@@ -97,30 +110,13 @@ public class SeaMesh : MonoBehaviour
 	
 	private void Update()
 	{
-		if (Input.GetMouseButtonDown(0))
+		for (var i = 1; i < m_Width; i++)
 		{
-			var	touchPos = Input.mousePosition;
-			var camera = GameObject.Find("Main Camera").GetComponent<Camera>();
-			var touchWPos = camera.ScreenToWorldPoint(new Vector3(touchPos.x, touchPos.y));
-			ForcePower(touchWPos, 2.0f);
-			//Debug.Log("Pushed" + ((int)touchWPos.x).ToString() + "," + ((int)touchWPos.y).ToString());
+			m_HeightForce[i] = (m_HeightValue[i + 1] + m_HeightValue[i - 1] - 2.06f * m_HeightValue[i]) * Tension + Friction * m_HeightForce[i];
 		}
 		for (var i = 0; i <= m_Width; i++)
 		{
-			var force = 0.0f;
-			if (m_HeightValue[i] < 0)		force =  0.10f;
-			else if (m_HeightValue[i] > 0)	force = -0.10f;
-			m_HeightForce[i] += force;
-			m_HeightForce[i] *= 0.6f;
-			if (Mathf.Abs(m_HeightForce[i]) < 0.02f)
-			{
-				m_HeightForce[i] = 0;
-				m_HeightValue[i] = 0;
-			}
-			else
-			{
-				m_HeightValue[i] += m_HeightForce[i];
-			}
+			m_HeightValue[i] += m_HeightForce[i];
 		}
 		SetVertex();
 	}
