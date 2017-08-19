@@ -19,6 +19,8 @@ public class GameMain : MonoBehaviour
     float	m_count;
 	float	m_gravity;
 	float	m_cowSpeed;
+	float	m_Timer;
+	Text	m_TimerText;
 
 	void Start ()
 	{
@@ -31,6 +33,8 @@ public class GameMain : MonoBehaviour
         m_cameraposi = m_camera.transform.position;
 		m_gravity = 0;
 		m_cowSpeed = 10.0f;
+		m_Timer = 0;
+		m_TimerText = GameObject.Find("Canvas").transform.Find("Timer").GetComponent<Text>();
 
 		SoundManager.instance.LoadSoundSourceFromResource(1, "Sounds/BGM_STAGE");
 		SoundMixer.PlayBGM(1, true);
@@ -41,6 +45,7 @@ public class GameMain : MonoBehaviour
 	{
 		InputProc();
 		CowMoveProc();
+		TimerProc();
     }
 
 	// 入力処理
@@ -108,5 +113,15 @@ public class GameMain : MonoBehaviour
         {
             m_camera.transform.position = new Vector3(m_player.transform.position.x, m_cameraposi.y, m_cameraposi.z);
         }
+	}
+
+	// タイマー表示処理
+    void TimerProc()
+	{
+		if (m_TimerText != null)
+		{
+			m_Timer += Time.deltaTime;
+			m_TimerText.text = string.Format("TIME:{0:D2}:{1:D2}", (int)m_Timer, (int)(m_Timer * 100) % 100);
+		}
 	}
 }
