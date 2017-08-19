@@ -25,6 +25,8 @@ public class GameMain : MonoBehaviour
     public GameObject m_goal;
     Image m_Sampleresu;
     Text m_ResuText;
+	float	m_VoiceTimer;
+	bool	m_Initialize;
 
 
     void Start ()
@@ -46,13 +48,21 @@ public class GameMain : MonoBehaviour
         m_ResuText = GameObject.Find("Canvas").transform.Find("ResultTime").GetComponent<Text>();
         
 
-        SoundManager.instance.LoadSoundSourceFromResource(1, "Sounds/BGM_STAGE");
+		SoundManager.instance.LoadSoundSourceFromResource(1, "Sounds/BGM_STAGE");
+		SoundManager.instance.LoadSoundSourceFromResource(10, "Sounds/SE_COW1");
+		SoundManager.instance.LoadSoundSourceFromResource(11, "Sounds/SE_COW2");
 		SoundMixer.PlayBGM(1, true);
+		m_VoiceTimer = 1.0f;
+		m_Initialize = true;
 	}
 	
 	// Update is called once per frame
 	void Update ()
 	{
+		if (!m_Initialize)
+		{
+			return;
+		}
         if (!m_goalflag)
         {
             InputProc();
@@ -60,7 +70,6 @@ public class GameMain : MonoBehaviour
             TimerProc();
         }
         goalproc();
-		
     }
 
 	// ì¸óÕèàóù
@@ -157,4 +166,14 @@ public class GameMain : MonoBehaviour
             m_ResuText.color = new Color(m_ResuText.color.r, m_ResuText.color.g, m_ResuText.color.b, m_ResuText.color.a + Time.deltaTime);
         }
     }
+
+    void VoiceProc()
+	{
+		m_VoiceTimer -= Time.deltaTime;
+		if (m_VoiceTimer <= 0)
+		{
+			SoundMixer.PlaySE(10 + (int)(Random.value + 0.5f), false);
+			m_VoiceTimer = Random.Range(1.0f, 4.0f) + 3.0f;
+		}
+	}
 }
