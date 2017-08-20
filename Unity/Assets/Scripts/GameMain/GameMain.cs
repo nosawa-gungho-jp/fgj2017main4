@@ -34,6 +34,11 @@ public class GameMain : MonoBehaviour
 	float		m_CameraVibAdd;
 
 
+    public void OnRetryButton()
+	{
+        SceneManager.LoadScene("GameMain");
+	}
+
     void Start ()
 	{
 		if (!GlobalObject.InitGlobalObject()) return;
@@ -134,6 +139,10 @@ public class GameMain : MonoBehaviour
 		{
 			m_gravity += 1.0f * Time.deltaTime;		//自由落下係数（マジックナンバー）
 			playerPosY -= m_gravity;
+		}
+		if (m_playerposi.x < 0)
+		{
+			m_playerposi.x = 0;
 		}
         m_player.transform.position = new Vector3(m_playerposi.x, playerPosY, m_playerposi.z);
 
