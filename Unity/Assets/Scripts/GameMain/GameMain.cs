@@ -39,6 +39,7 @@ public class GameMain : MonoBehaviour
 
     public void OnRetryButton()
 	{
+		SoundManager.instance.StopByLayer(SoundMixer.Layer_SE);
         SceneManager.LoadScene("GameMain");
 	}
 
@@ -82,7 +83,10 @@ public class GameMain : MonoBehaviour
 		SoundManager.instance.LoadSoundSourceFromResource(10, "Sounds/SE_COW1");
 		SoundManager.instance.LoadSoundSourceFromResource(11, "Sounds/SE_COW2");
 		SoundManager.instance.LoadSoundSourceFromResource(12, "Sounds/SE_CLEAR");
+		SoundManager.instance.LoadSoundSourceFromResource(13, "Sounds/SE_ocean 2");
+		SoundManager.instance.LoadSoundSourceFromResource(14, "Sounds/SE_wave_S");
 		SoundMixer.PlayBGM(1, true);
+		SoundMixer.PlaySE(13);
 		m_VoiceTimer = 1.0f;
 		m_Initialize = true;
 	}
@@ -126,6 +130,7 @@ public class GameMain : MonoBehaviour
             m_seaComp.ForcePower(touchWPos, 2.0f + m_count * 10.0f);
             m_count = 0;
 			m_HandObj.SetActive(false);
+			SoundMixer.PlaySE(14, true, 0.5f);
             //Debug.Log("Pushed" + ((int)touchWPos.x).ToString() + "," + ((int)touchWPos.y).ToString());
         }
         if(Input.GetMouseButton(0))

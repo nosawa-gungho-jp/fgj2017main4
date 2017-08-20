@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using VSSMFU;
 
 public class NextTitle : MonoBehaviour {
 
@@ -18,6 +19,7 @@ public class NextTitle : MonoBehaviour {
     public void ButtonPush()
     {
 		SoundMixer.StopBGM(1.0f);
+		SoundManager.instance.StopByLayer(SoundMixer.Layer_SE);
         SceneManager.LoadScene("Title");
     }
 }
