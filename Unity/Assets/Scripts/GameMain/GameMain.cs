@@ -49,7 +49,6 @@ public class GameMain : MonoBehaviour
         m_goal = GameObject.Find("Goal");
         m_Sampleresu = GameObject.Find("Canvas").transform.Find("Goal").transform.Find("SampleResult").GetComponent<Image>();
         m_ResuText = GameObject.Find("Canvas").transform.Find("Goal").transform.Find("ResultTime").GetComponent<Text>();
-        //m_Princess = GetComponent<Sprite[]>();
         m_goalSprite = GameObject.Find("Canvas").transform.Find("Goal");
         
 
@@ -83,7 +82,6 @@ public class GameMain : MonoBehaviour
 	{
         if (Input.GetMouseButtonUp(0))
         {
-            Debug.Log(m_count);
             var touchPos = Input.mousePosition;
             var camera = GameObject.Find("Main Camera").GetComponent<Camera>();
             var touchWPos = camera.ScreenToWorldPoint(new Vector3(touchPos.x, touchPos.y));
@@ -168,17 +166,16 @@ public class GameMain : MonoBehaviour
 
         if(m_goalflag)
         {
-            m_ResuText.text = m_TimerText.text;
+            m_ResuText.text = m_Timer.ToString();
             m_goalSprite.gameObject.SetActive(true);
-            //float time = float.Parse(m_ResuText.text.ToString());
-            //if (0.0f <= time)
-            //{
-            //    m_goalSprite.transform.Find("Princess").GetComponent<Image>().sprite = m_Princess[1];
-            //}
-            //else if (time <= 20.0f)
-            //{
-            //    m_goalSprite.transform.Find("Princess").GetComponent<Image>().sprite = m_Princess[0];
-            //}
+            if (0.0f <= m_Timer && m_Timer < 10.0f)
+            {
+                m_goalSprite.transform.Find("Princess").GetComponent<Image>().sprite = m_Princess[1];
+            }
+            else if (10.0f <= m_Timer && m_Timer <= 20.0f)
+            {
+                m_goalSprite.transform.Find("Princess").GetComponent<Image>().sprite = m_Princess[0];
+            }
         }
     }
 
