@@ -101,6 +101,7 @@
     <Compile Include="Assets\Scripts\GameMain\SeaMesh.cs" />
     <Compile Include="Assets\Scripts\Title\BgScroll.cs" />
     <Compile Include="Assets\Scripts\Title\Button.cs" />
+    <Compile Include="Assets\Scripts\Title\StaffScroll.cs" />
     <Compile Include="Assets\Scripts\Title\Title.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -24,7 +24,8 @@ public class GameMain : MonoBehaviour
 	DispTimer	m_HiScoreText;
     bool m_goalflag;
     public GameObject m_goal;
-    public GameObject m_Fail;
+    private GameObject m_Fail;
+    private GameObject m_HandObj;
     Image m_Sampleresu;
     Text m_ResuText;
 	float	m_VoiceTimer;
@@ -71,6 +72,7 @@ public class GameMain : MonoBehaviour
         m_Sampleresu = m_goalSprite.transform.Find("SampleResult").GetComponent<Image>();
         m_ResuText = m_goalSprite.transform.Find("ResultTime").GetComponent<Text>();
         m_goal = GameObject.Find("Goal");
+		m_HandObj = GameObject.Find("Hand");
 
 		m_HiScoreText = canvas.Find("HiScore").GetComponent<DispTimer>();
 		m_HiScoreText.SetNum(GameData.instance.m_HiScore);
@@ -121,6 +123,7 @@ public class GameMain : MonoBehaviour
             var touchWPos = camera.ScreenToWorldPoint(new Vector3(touchPos.x, touchPos.y));
             m_seaComp.ForcePower(touchWPos, 2.0f + m_count * 10.0f);
             m_count = 0;
+			m_HandObj.SetActive(false);
             //Debug.Log("Pushed" + ((int)touchWPos.x).ToString() + "," + ((int)touchWPos.y).ToString());
         }
         if(Input.GetMouseButton(0))
