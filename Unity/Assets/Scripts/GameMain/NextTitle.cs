@@ -17,6 +17,7 @@ public class NextTitle : MonoBehaviour {
 
     public void ButtonPush()
     {
+		SoundMixer.StopBGM(1.0f);
         SceneManager.LoadScene("Title");
     }
 }
