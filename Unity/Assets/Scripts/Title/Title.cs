@@ -5,6 +5,7 @@ using System.Collections;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 using Ionic.Zlib;
 
 public class Title : MonoBehaviour
@@ -17,5 +18,10 @@ public class Title : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
 	{
+	}
+
+	public void OnExplainButton()
+	{
+		SceneManager.LoadScene("GameMain");
 	}
 }
