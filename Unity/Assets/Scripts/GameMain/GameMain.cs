@@ -41,6 +41,13 @@ public class GameMain : MonoBehaviour
         SceneManager.LoadScene("GameMain");
 	}
 
+    public void OnClearButton()
+	{
+		GameData.instance.m_HiScore = 0;
+		GameData.instance.Save();
+		m_HiScoreText.SetNum(GameData.instance.m_HiScore);
+	}
+
     void Start ()
 	{
 		if (!GlobalObject.InitGlobalObject()) return;
@@ -164,9 +171,9 @@ public class GameMain : MonoBehaviour
 		// カメラ位置調整
 		if (m_player.transform.position.x >= 0)
         {
-			m_CameraVibAdd += 2.0f / 180 * Mathf.PI;
+			m_CameraVibAdd += 1.5f / 180 * Mathf.PI;
 			m_CameraVibAdd %= Mathf.PI * 2;
-			m_CameraVib += Mathf.Sin(m_CameraVibAdd) * 0.05f;
+			m_CameraVib += Mathf.Sin(m_CameraVibAdd) * 0.04f;
             m_camera.transform.position = new Vector3(m_player.transform.position.x + m_CameraVib, m_cameraposi.y, m_cameraposi.z);
         }
 
@@ -228,7 +235,7 @@ public class GameMain : MonoBehaviour
             }
 			var score = (int)(m_Timer * 100);
 			GameData.instance.m_Score = score;
-			if (GameData.instance.m_HiScore > score)
+			if (GameData.instance.m_HiScore == 0 || GameData.instance.m_HiScore > score)
 			{
 				// 記録更新
 				GameData.instance.m_HiScore = score;
