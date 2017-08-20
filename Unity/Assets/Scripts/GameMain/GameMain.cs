@@ -20,8 +20,8 @@ public class GameMain : MonoBehaviour
 	float	m_gravity;
 	float	m_cowSpeed;
 	float	m_Timer;
-	//Text	m_TimerText;
 	DispTimer	m_TimerText;
+	DispTimer	m_HiScoreText;
     bool m_goalflag;
     public GameObject m_goal;
     Image m_Sampleresu;
@@ -51,6 +51,8 @@ public class GameMain : MonoBehaviour
         m_ResuText = GameObject.Find("Canvas").transform.Find("Goal").transform.Find("ResultTime").GetComponent<Text>();
         m_goalSprite = GameObject.Find("Canvas").transform.Find("Goal");
 
+		m_HiScoreText = GameObject.Find("Canvas").transform.Find("HiScore").GetComponent<DispTimer>();
+		m_HiScoreText.SetNum(GameData.instance.m_HiScore);
 
         SoundManager.instance.LoadSoundSourceFromResource(1, "Sounds/BGM_STAGE");
 		SoundManager.instance.LoadSoundSourceFromResource(10, "Sounds/SE_COW1");
@@ -178,12 +180,13 @@ public class GameMain : MonoBehaviour
             }
 			var score = (int)(m_Timer * 100);
 			GameData.instance.m_Score = score;
-			if (GameData.instance.m_HiScore < score)
+			if (GameData.instance.m_HiScore > score)
 			{
 				// ãLò^çXêV
 				GameData.instance.m_HiScore = score;
 				GameData.instance.Save();
 				m_ResuText.gameObject.SetActive(true);
+				m_HiScoreText.SetNum(GameData.instance.m_HiScore);
 			}
         }
         

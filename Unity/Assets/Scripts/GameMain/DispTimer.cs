@@ -19,7 +19,7 @@ public class DispTimer : MonoBehaviour
 		m_NumObject[3].sprite = m_Image[(num / 1000) % 10];
 	}
 
-	void Start ()
+	void Awake()
 	{
 		m_NumObject = new List<Image>(transform.Find("Num").GetComponentsInChildren<Image>());
 		m_NumObject.Sort((x,y)=> {
