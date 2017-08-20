@@ -15,7 +15,7 @@ public class NextTitle : MonoBehaviour {
 		
 	}
 
-    void ButtonPush()
+    public void ButtonPush()
     {
         SceneManager.LoadScene("Title");
     }
