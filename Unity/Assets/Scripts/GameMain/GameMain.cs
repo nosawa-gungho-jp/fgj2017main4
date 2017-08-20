@@ -30,12 +30,16 @@ public class GameMain : MonoBehaviour
 	bool	m_Initialize;
     public Sprite[] m_Princess;
     Transform m_goalSprite;
+	float		m_CameraVib;
+	float		m_CameraVibAdd;
 
 
     void Start ()
 	{
 		if (!GlobalObject.InitGlobalObject()) return;
-        m_player = GameObject.Find("Player");
+
+		var canvas = GameObject.Find("Canvas").transform;
+		m_player = GameObject.Find("Player");
         m_playerposi = m_player.transform.position;
         m_sea = GameObject.Find("Sea");
         m_seaComp = m_sea.GetComponent<SeaMesh>();
@@ -43,15 +47,17 @@ public class GameMain : MonoBehaviour
         m_cameraposi = m_camera.transform.position;
 		m_gravity = 0;
 		m_cowSpeed = 10.0f;
+		m_CameraVib = 0;
+		m_CameraVibAdd = 0;
 		m_Timer = 0;
-		m_TimerText = GameObject.Find("Canvas").transform.Find("Timer").GetComponent<DispTimer>();
+		m_TimerText = canvas.Find("Timer").GetComponent<DispTimer>();
         m_goalflag = false;
         m_goal = GameObject.Find("Goal");
-        m_Sampleresu = GameObject.Find("Canvas").transform.Find("Goal").transform.Find("SampleResult").GetComponent<Image>();
-        m_ResuText = GameObject.Find("Canvas").transform.Find("Goal").transform.Find("ResultTime").GetComponent<Text>();
-        m_goalSprite = GameObject.Find("Canvas").transform.Find("Goal");
+        m_Sampleresu = canvas.Find("Goal").transform.Find("SampleResult").GetComponent<Image>();
+        m_ResuText = canvas.Find("Goal").transform.Find("ResultTime").GetComponent<Text>();
+        m_goalSprite = canvas.Find("Goal");
 
-		m_HiScoreText = GameObject.Find("Canvas").transform.Find("HiScore").GetComponent<DispTimer>();
+		m_HiScoreText = canvas.Find("HiScore").GetComponent<DispTimer>();
 		m_HiScoreText.SetNum(GameData.instance.m_HiScore);
 
         SoundManager.instance.LoadSoundSourceFromResource(1, "Sounds/BGM_STAGE");
@@ -87,7 +93,7 @@ public class GameMain : MonoBehaviour
             var touchPos = Input.mousePosition;
             var camera = GameObject.Find("Main Camera").GetComponent<Camera>();
             var touchWPos = camera.ScreenToWorldPoint(new Vector3(touchPos.x, touchPos.y));
-            m_seaComp.ForcePower(touchWPos, 4.0f + m_count * 20.0f);
+            m_seaComp.ForcePower(touchWPos, 2.0f + m_count * 10.0f);
             m_count = 0;
             //Debug.Log("Pushed" + ((int)touchWPos.x).ToString() + "," + ((int)touchWPos.y).ToString());
         }
@@ -134,7 +140,10 @@ public class GameMain : MonoBehaviour
 		// ƒJƒƒ‰ˆÊ’u’²®
 		if (m_player.transform.position.x >= 0)
         {
-            m_camera.transform.position = new Vector3(m_player.transform.position.x, m_cameraposi.y, m_cameraposi.z);
+			m_CameraVibAdd += 2.0f / 180 * Mathf.PI;
+			m_CameraVibAdd %= Mathf.PI * 2;
+			m_CameraVib += Mathf.Sin(m_CameraVibAdd) * 0.05f;
+            m_camera.transform.position = new Vector3(m_player.transform.position.x + m_CameraVib, m_cameraposi.y, m_cameraposi.z);
         }
 	}
 
