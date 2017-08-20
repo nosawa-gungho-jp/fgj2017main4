@@ -51,7 +51,8 @@ public class GameMain : MonoBehaviour
         m_ResuText = GameObject.Find("Canvas").transform.Find("Goal").transform.Find("ResultTime").GetComponent<Text>();
         m_goalSprite = GameObject.Find("Canvas").transform.Find("Goal");
 
-		SoundManager.instance.LoadSoundSourceFromResource(1, "Sounds/BGM_STAGE");
+
+        SoundManager.instance.LoadSoundSourceFromResource(1, "Sounds/BGM_STAGE");
 		SoundManager.instance.LoadSoundSourceFromResource(10, "Sounds/SE_COW1");
 		SoundManager.instance.LoadSoundSourceFromResource(11, "Sounds/SE_COW2");
 		SoundMixer.PlayBGM(1, true);
@@ -172,11 +173,12 @@ public class GameMain : MonoBehaviour
             {
                 m_goalSprite.transform.Find("Princess").GetComponent<Image>().sprite = m_Princess[1];
             }
-            else if (10.0f <= m_Timer && m_Timer <= 20.0f)
+            else if (20 <= m_Timer)
             {
                 m_goalSprite.transform.Find("Princess").GetComponent<Image>().sprite = m_Princess[0];
             }
         }
+        
     }
 
     void VoiceProc()
