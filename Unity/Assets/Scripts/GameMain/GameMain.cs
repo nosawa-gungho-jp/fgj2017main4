@@ -50,7 +50,6 @@ public class GameMain : MonoBehaviour
         m_Sampleresu = GameObject.Find("Canvas").transform.Find("Goal").transform.Find("SampleResult").GetComponent<Image>();
         m_ResuText = GameObject.Find("Canvas").transform.Find("Goal").transform.Find("ResultTime").GetComponent<Text>();
         m_goalSprite = GameObject.Find("Canvas").transform.Find("Goal");
-        
 
 		SoundManager.instance.LoadSoundSourceFromResource(1, "Sounds/BGM_STAGE");
 		SoundManager.instance.LoadSoundSourceFromResource(10, "Sounds/SE_COW1");
@@ -85,15 +84,15 @@ public class GameMain : MonoBehaviour
             var touchPos = Input.mousePosition;
             var camera = GameObject.Find("Main Camera").GetComponent<Camera>();
             var touchWPos = camera.ScreenToWorldPoint(new Vector3(touchPos.x, touchPos.y));
-            m_seaComp.ForcePower(touchWPos, 4.0f + m_count);
+            m_seaComp.ForcePower(touchWPos, 4.0f + m_count * 20.0f);
             m_count = 0;
             //Debug.Log("Pushed" + ((int)touchWPos.x).ToString() + "," + ((int)touchWPos.y).ToString());
         }
         if(Input.GetMouseButton(0))
         {
-            if (m_count <= 7.0f)
+            if (m_count <= 0.5f)
             {
-                m_count += Time.deltaTime * 5;
+                m_count += Time.deltaTime;
                 Debug.Log(m_count);
             }
         }
@@ -105,21 +104,22 @@ public class GameMain : MonoBehaviour
 		var playerPosY = m_player.transform.position.y;
 
 		m_playerposi.x += m_cowSpeed * Time.deltaTime;
-		m_cowSpeed *= 0.95f;			// スピード減衰率（マジックナンバー）
-
-		var playerFront  = new Vector3(m_playerposi.x - 1.0f, m_playerposi.y, m_playerposi.z);
-		var playerBack   = new Vector3(m_playerposi.x + 1.0f, m_playerposi.y, m_playerposi.z);
-		var heightFront  = m_seaComp.GetWaveHeight(playerFront);
-		var heightBack   = m_seaComp.GetWaveHeight(playerBack);
-		m_cowSpeed += (heightFront - heightBack) * 0.5f;
-		//Debug.Log("Speed:" + (heightFront - heightBack).ToString());
 
 		var heightCenter = m_seaComp.GetWaveHeight(m_playerposi) - 2.56f;		// 位置調整（マジックナンバー）
 		var diff = playerPosY - heightCenter;
+
 		if (diff <= 0.1f)
 		{
+			var playerFront  = new Vector3(m_playerposi.x - 1.0f, m_playerposi.y, m_playerposi.z);
+			var playerBack   = new Vector3(m_playerposi.x + 1.0f, m_playerposi.y, m_playerposi.z);
+			var heightFront  = m_seaComp.GetWaveHeight(playerFront);
+			var heightBack   = m_seaComp.GetWaveHeight(playerBack);
+			m_cowSpeed += (heightFront - heightBack) * 0.5f;
+			//Debug.Log("Speed:" + (heightFront - heightBack).ToString());
+
 			playerPosY = heightCenter;
 			m_gravity = -m_seaComp.GetWaveVelocity(m_playerposi) * 0.5f;	// 上向きの力補正（マジックナンバー）
+			m_cowSpeed *= 0.95f;			// スピード減衰率（マジックナンバー）
 		}
 		else
 		{
