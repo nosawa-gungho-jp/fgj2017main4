@@ -167,7 +167,6 @@ public class GameMain : MonoBehaviour
 
         if(m_goalflag)
         {
-            m_ResuText.text = m_Timer.ToString();
             m_goalSprite.gameObject.SetActive(true);
             if (0.0f <= m_Timer && m_Timer < 10.0f)
             {
@@ -177,6 +176,15 @@ public class GameMain : MonoBehaviour
             {
                 m_goalSprite.transform.Find("Princess").GetComponent<Image>().sprite = m_Princess[0];
             }
+			var score = (int)(m_Timer * 100);
+			GameData.instance.m_Score = score;
+			if (GameData.instance.m_HiScore < score)
+			{
+				// ‹L˜^XV
+				GameData.instance.m_HiScore = score;
+				GameData.instance.Save();
+				m_ResuText.gameObject.SetActive(true);
+			}
         }
         
     }
