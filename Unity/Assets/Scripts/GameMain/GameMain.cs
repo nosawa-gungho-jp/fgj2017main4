@@ -24,6 +24,7 @@ public class GameMain : MonoBehaviour
 	DispTimer	m_HiScoreText;
     bool m_goalflag;
     public GameObject m_goal;
+    public GameObject m_Fail;
     Image m_Sampleresu;
     Text m_ResuText;
 	float	m_VoiceTimer;
@@ -32,6 +33,7 @@ public class GameMain : MonoBehaviour
     Transform m_goalSprite;
 	float		m_CameraVib;
 	float		m_CameraVibAdd;
+	float		m_CowStopCounter;
 
 
     public void OnRetryButton()
@@ -57,10 +59,11 @@ public class GameMain : MonoBehaviour
 		m_Timer = 0;
 		m_TimerText = canvas.Find("Timer").GetComponent<DispTimer>();
         m_goalflag = false;
+		m_Fail = canvas.Find("FailWin").gameObject;
+        m_goalSprite = canvas.Find("GoalWin").transform;
+        m_Sampleresu = m_goalSprite.transform.Find("SampleResult").GetComponent<Image>();
+        m_ResuText = m_goalSprite.transform.Find("ResultTime").GetComponent<Text>();
         m_goal = GameObject.Find("Goal");
-        m_Sampleresu = canvas.Find("Goal").transform.Find("SampleResult").GetComponent<Image>();
-        m_ResuText = canvas.Find("Goal").transform.Find("ResultTime").GetComponent<Text>();
-        m_goalSprite = canvas.Find("Goal");
 
 		m_HiScoreText = canvas.Find("HiScore").GetComponent<DispTimer>();
 		m_HiScoreText.SetNum(GameData.instance.m_HiScore);
@@ -80,14 +83,25 @@ public class GameMain : MonoBehaviour
 		{
 			return;
 		}
-        if (!m_goalflag)
-        {
-            InputProc();
-            CowMoveProc();
-            TimerProc();
-			VoiceProc();
-        }
-        goalproc();
+		if (m_CowStopCounter >= 3.0f)
+		{
+			// 沈む
+			var playerPos = m_player.transform.position;
+			playerPos.y -= m_CowStopCounter * m_CowStopCounter * Time.deltaTime;
+			m_player.transform.position = playerPos;
+            m_Fail.gameObject.SetActive(true);
+		}
+		else
+		{
+			if (!m_goalflag)
+			{
+				InputProc();
+				CowMoveProc();
+				TimerProc();
+				VoiceProc();
+			}
+			goalproc();
+		}
     }
 
 	// 入力処理
@@ -134,6 +148,7 @@ public class GameMain : MonoBehaviour
 			playerPosY = heightCenter;
 			m_gravity = -m_seaComp.GetWaveVelocity(m_playerposi) * 0.5f;	// 上向きの力補正（マジックナンバー）
 			m_cowSpeed *= 0.95f;			// スピード減衰率（マジックナンバー）
+			m_cowSpeed = (Mathf.Abs(m_cowSpeed) < 0.01f)? 0 : m_cowSpeed;
 		}
 		else
 		{
@@ -154,6 +169,21 @@ public class GameMain : MonoBehaviour
 			m_CameraVib += Mathf.Sin(m_CameraVibAdd) * 0.05f;
             m_camera.transform.position = new Vector3(m_player.transform.position.x + m_CameraVib, m_cameraposi.y, m_cameraposi.z);
         }
+
+		// 停止判定
+		if (m_cowSpeed == 0)
+		{
+			m_CowStopCounter += Time.deltaTime;
+			if (m_CowStopCounter >= 3.0f)
+			{
+				// 沈む
+				m_Fail.gameObject.SetActive(true);
+			}
+		}
+		else
+		{
+			m_CowStopCounter = 0;
+		}
 	}
 
 	// タイマー表示処理
