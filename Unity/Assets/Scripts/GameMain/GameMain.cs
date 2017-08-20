@@ -77,9 +77,11 @@ public class GameMain : MonoBehaviour
 		m_HiScoreText = canvas.Find("HiScore").GetComponent<DispTimer>();
 		m_HiScoreText.SetNum(GameData.instance.m_HiScore);
 
-        SoundManager.instance.LoadSoundSourceFromResource(1, "Sounds/BGM_STAGE");
+        SoundManager.instance.LoadSoundSourceFromResource(1, "Sounds/BGM_STAGE2");
+        SoundManager.instance.LoadSoundSourceFromResource(2, "Sounds/BGM_RESULT");
 		SoundManager.instance.LoadSoundSourceFromResource(10, "Sounds/SE_COW1");
 		SoundManager.instance.LoadSoundSourceFromResource(11, "Sounds/SE_COW2");
+		SoundManager.instance.LoadSoundSourceFromResource(12, "Sounds/SE_CLEAR");
 		SoundMixer.PlayBGM(1, true);
 		m_VoiceTimer = 1.0f;
 		m_Initialize = true;
@@ -227,6 +229,8 @@ public class GameMain : MonoBehaviour
 
         if(m_goalflag)
         {
+			SoundMixer.PlayBGM(2, true);
+			SoundMixer.PlaySE(12, true);
             m_goalSprite.gameObject.SetActive(true);
             if (0.0f <= m_Timer && m_Timer < 10.0f)
             {
