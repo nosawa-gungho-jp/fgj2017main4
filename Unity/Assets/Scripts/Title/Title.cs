@@ -5,7 +5,6 @@ using System.Collections;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
-using UnityEngine.SceneManagement;
 using Ionic.Zlib;
 
 public class Title : MonoBehaviour

@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: a0395da0eb8b99140834e7e7de61a12e
+timeCreated: 1503327240
+licenseType: Pro
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 64
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Ume P Gothic
+  fontNames:
+  - Ume P Gothic
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

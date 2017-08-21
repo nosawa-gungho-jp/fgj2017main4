@@ -22,6 +22,7 @@ public class GameMain : MonoBehaviour
 	float	m_Timer;
 	DispTimer	m_TimerText;
 	DispTimer	m_HiScoreText;
+	DispTimer	m_SpeedText;
     bool m_goalflag;
     public GameObject m_goal;
     private GameObject m_Fail;
@@ -29,12 +30,12 @@ public class GameMain : MonoBehaviour
     Image m_Sampleresu;
     Text m_ResuText;
 	float	m_VoiceTimer;
-	bool	m_Initialize;
     public Sprite[] m_Princess;
     Transform m_goalSprite;
 	float		m_CameraVib;
 	float		m_CameraVibAdd;
 	float		m_CowStopCounter;
+	int			m_Step;
 
 
     public void OnRetryButton()
@@ -78,6 +79,9 @@ public class GameMain : MonoBehaviour
 		m_HiScoreText = canvas.Find("HiScore").GetComponent<DispTimer>();
 		m_HiScoreText.SetNum(GameData.instance.m_HiScore);
 
+		m_SpeedText = canvas.Find("Speed").GetComponent<DispTimer>();
+		m_SpeedText.SetNum(0);
+	
         SoundManager.instance.LoadSoundSourceFromResource(1, "Sounds/BGM_STAGE2");
         SoundManager.instance.LoadSoundSourceFromResource(2, "Sounds/BGM_RESULT");
 		SoundManager.instance.LoadSoundSourceFromResource(10, "Sounds/SE_COW1");
@@ -88,34 +92,33 @@ public class GameMain : MonoBehaviour
 		SoundMixer.PlayBGM(1, true);
 		SoundMixer.PlaySE(13);
 		m_VoiceTimer = 1.0f;
-		m_Initialize = true;
+		m_Step = 1;
 	}
 	
 	// Update is called once per frame
 	void Update ()
 	{
-		if (!m_Initialize)
+		switch (m_Step)
 		{
-			return;
-		}
-		if (m_CowStopCounter >= 3.0f)
-		{
+		case 1:
+			InputProc();
+			CowMoveProc();
+			TimerProc();
+			VoiceProc();
+			goalproc();
+			break;
+
+		case 20:
+			goalproc();
+			break;
+
+		case 30:
 			// 沈む
 			var playerPos = m_player.transform.position;
 			playerPos.y -= m_CowStopCounter * m_CowStopCounter * Time.deltaTime;
 			m_player.transform.position = playerPos;
             m_Fail.gameObject.SetActive(true);
-		}
-		else
-		{
-			if (!m_goalflag)
-			{
-				InputProc();
-				CowMoveProc();
-				TimerProc();
-				VoiceProc();
-			}
-			goalproc();
+			break;
 		}
     }
 
@@ -149,6 +152,7 @@ public class GameMain : MonoBehaviour
 		var playerPosY = m_player.transform.position.y;
 
 		m_playerposi.x += m_cowSpeed * Time.deltaTime;
+		m_SpeedText.SetNum((int)(m_cowSpeed * 10));
 
 		var heightCenter = m_seaComp.GetWaveHeight(m_playerposi) - 2.56f;		// 位置調整（マジックナンバー）
 		var diff = playerPosY - heightCenter;
@@ -195,6 +199,7 @@ public class GameMain : MonoBehaviour
 			{
 				// 沈む
 				m_Fail.gameObject.SetActive(true);
+				m_Step = 30;
 			}
 		}
 		else
@@ -232,10 +237,10 @@ public class GameMain : MonoBehaviour
             m_player.transform.position = new Vector3(m_player.transform.position.x - Time.deltaTime, m_playerposi.y, m_playerposi.z);
         }
 
-        if(m_goalflag)
+        if(m_goalflag && m_Step == 1)
         {
 			SoundMixer.PlayBGM(2, true);
-			SoundMixer.PlaySE(12, true);
+			SoundMixer.PlaySE(12);
             m_goalSprite.gameObject.SetActive(true);
             if (0.0f <= m_Timer && m_Timer < 10.0f)
             {
@@ -255,6 +260,7 @@ public class GameMain : MonoBehaviour
 				m_ResuText.gameObject.SetActive(true);
 				m_HiScoreText.SetNum(GameData.instance.m_HiScore);
 			}
+			m_Step = 20;
         }
         
     }

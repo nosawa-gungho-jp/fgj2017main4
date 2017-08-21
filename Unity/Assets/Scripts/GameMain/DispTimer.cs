@@ -13,10 +13,11 @@ public class DispTimer : MonoBehaviour
 	public void SetNum(int num)
 	{
 		m_Number = num;
-		m_NumObject[0].sprite = m_Image[ num         % 10];
-		m_NumObject[1].sprite = m_Image[(num /   10) % 10];
-		m_NumObject[2].sprite = m_Image[(num /  100) % 10];
-		m_NumObject[3].sprite = m_Image[(num / 1000) % 10];
+		foreach (var obj in m_NumObject)
+		{
+			obj.sprite = m_Image[num % 10];
+			num /= 10;
+		}
 	}
 
 	void Awake()

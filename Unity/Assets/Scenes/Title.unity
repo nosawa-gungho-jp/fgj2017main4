@@ -356,7 +356,7 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_Font: {fileID: 12800000, guid: a0395da0eb8b99140834e7e7de61a12e, type: 3}
     m_FontSize: 24
     m_FontStyle: 0
     m_BestFit: 0
@@ -365,7 +365,7 @@ MonoBehaviour:
     m_Alignment: 0
     m_AlignByGeometry: 0
     m_RichText: 1
-    m_HorizontalOverflow: 0
+    m_HorizontalOverflow: 1
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: "\u30EA\u30FC\u30C0\u30FC\u517C\u30B5\u30A6\u30F3\u30C9\uFF1A\u5897\u7530\u3000\u592A\u90CE\u3000\u3000\u30E1\u30A4\u30F3\u30D7\u30ED\u30B0\u30E9\u30DE\uFF1A\u661F\u5C71\u3000\u5B5D\u660E\u3000\u3000\u30D7\u30ED\u30B0\u30E9\u30DE\uFF1A\u65E9\u5DDD\u3000\u7950\u5E0C\u3001\u5C71\u5CB8\u3000\u9054\u77E2\u3000\u3000\u30B0\u30E9\u30D5\u30A3\u30C3\u30AB\u30FC\uFF1A\u83C5\u6D6A\u3000\u4F0A\u5439\u3001\u9234\u6728\u3000\u6DBC\u5E73\u3000\u3000\u30EC\u30D9\u30EB\u30C7\u30B6\u30A4\u30F3\uFF1A\u9152\u4E95\u3000\u5FB9\u3000\u3000\u30B5\u30DD\u30FC\u30BF\u30FC\uFF1A\u5927\u6FA4\u3000\u7BC4\u4E4B"
