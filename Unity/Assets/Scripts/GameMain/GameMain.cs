@@ -10,37 +10,39 @@ using VSSMFU;
 
 public class GameMain : MonoBehaviour
 {
-    public GameObject m_player;
-    public Camera m_camera;
-    public GameObject m_sea;
-    public SeaMesh m_seaComp;
-    Vector3 m_playerposi;
-    Vector3 m_cameraposi;
-    float	m_count;
-	float	m_gravity;
-	float	m_cowSpeed;
-	float	m_Timer;
-	DispTimer	m_TimerText;
-	DispTimer	m_HiScoreText;
-	DispTimer	m_SpeedText;
-    bool m_goalflag;
-    public GameObject m_goal;
-    private GameObject m_Fail;
-    private GameObject m_HandObj;
-    Image m_Sampleresu;
-    Text m_ResuText;
-	float	m_VoiceTimer;
-    public Sprite[] m_Princess;
-    Transform m_goalSprite;
-	float		m_CameraVib;
-	float		m_CameraVibAdd;
-	float		m_CowStopCounter;
-	int			m_Step;
+    public GameObject	m_player;
+    public Camera		m_camera;
+    public GameObject	m_sea;
+    public SeaMesh		m_seaComp;
+    public Sprite[]		m_Princess;
+
+	private	Vector3		m_playerposi;
+    private	Vector3		m_cameraposi;
+    private	float		m_count;
+	private	float		m_gravity;
+	private	float		m_cowSpeed;
+	private	float		m_Timer;
+	private	DispTimer	m_TimerText;
+	private	DispTimer	m_HiScoreText;
+	private	DispTimer	m_SpeedText;
+    private	bool		m_goalflag;
+    private GameObject	m_start;
+    private GameObject	m_goal;
+    private GameObject	m_Fail;
+    private GameObject	m_HandObj;
+    private	Image		m_Sampleresu;
+    private	Text		m_ResuText;
+	private	float		m_VoiceTimer;
+    private	Transform	m_goalSprite;
+	private	float		m_CameraVib;
+	private	float		m_CameraVibAdd;
+	private	float		m_CowStopCounter;
+	private	int			m_Step;
 
 
     public void OnRetryButton()
 	{
-		SoundManager.instance.StopByLayer(SoundMixer.Layer_SE);
+		SoundManager.instance.StopByLayer(SoundMixer.Layer_BGM | SoundMixer.Layer_SE);
         SceneManager.LoadScene("GameMain");
 	}
 
@@ -71,7 +73,7 @@ public class GameMain : MonoBehaviour
         m_goalflag = false;
 		m_Fail = canvas.Find("FailWin").gameObject;
         m_goalSprite = canvas.Find("GoalWin").transform;
-        m_Sampleresu = m_goalSprite.transform.Find("SampleResult").GetComponent<Image>();
+        m_Sampleresu = m_goalSprite.transform.Find("GoalPanel").GetComponent<Image>();
         m_ResuText = m_goalSprite.transform.Find("ResultTime").GetComponent<Text>();
         m_goal = GameObject.Find("Goal");
 		m_HandObj = GameObject.Find("Hand");
@@ -81,6 +83,20 @@ public class GameMain : MonoBehaviour
 
 		m_SpeedText = canvas.Find("Speed").GetComponent<DispTimer>();
 		m_SpeedText.SetNum(0);
+
+		m_start = canvas.Find("StartWin/StartPanel").gameObject;
+        Hashtable hash = new Hashtable(){
+            {"from", 1},
+            {"to", 0},
+            {"time", 0.7f},
+            {"speed", 1f},
+            {"delay", 0f},
+            {"easeType",iTween.EaseType.linear},
+            {"loopType",iTween.LoopType.none},
+            {"onupdate", "OnUpdateAlpha"},
+            {"onupdatetarget", gameObject},
+        };
+		iTween.ValueTo(m_start, hash);
 	
         SoundManager.instance.LoadSoundSourceFromResource(1, "Sounds/BGM_STAGE2");
         SoundManager.instance.LoadSoundSourceFromResource(2, "Sounds/BGM_RESULT");
@@ -94,7 +110,12 @@ public class GameMain : MonoBehaviour
 		m_VoiceTimer = 1.0f;
 		m_Step = 1;
 	}
-	
+
+	void OnUpdateAlpha(float alpha)
+    {
+        m_start.GetComponent<CanvasRenderer>().SetAlpha(alpha);
+    }	
+
 	// Update is called once per frame
 	void Update ()
 	{
