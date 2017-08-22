@@ -152,7 +152,7 @@ public class GameMain : MonoBehaviour
 		var playerPosY = m_player.transform.position.y;
 
 		m_playerposi.x += m_cowSpeed * Time.deltaTime;
-		m_SpeedText.SetNum((int)(m_cowSpeed * 10));
+		m_SpeedText.SetNum(Mathf.Abs((int)(m_cowSpeed * 10)));
 
 		var heightCenter = m_seaComp.GetWaveHeight(m_playerposi) - 2.56f;		// 位置調整（マジックナンバー）
 		var diff = playerPosY - heightCenter;
